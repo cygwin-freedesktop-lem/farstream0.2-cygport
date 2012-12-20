@@ -1,0 +1,13 @@
+--- a/docs/libs/Makefile.am
++++ b/docs/libs/Makefile.am
+@@ -62,8 +62,8 @@ extra_files =
+ 
+ # CFLAGS and LDFLAGS for compiling scan program. Only needed if your app/lib
+ # contains GtkObjects/GObjects and you want to document signals and properties.
+-GTKDOC_CFLAGS = $(FS_INTERNAL_CFLAGS) $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS)
+-GTKDOC_LIBS = -static \
++GTKDOC_CFLAGS = -I$(srcdir) $(FS_INTERNAL_CFLAGS) $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS)
++GTKDOC_LIBS = \
+ 	$(top_builddir)/farstream/libfarstream-@FS_APIVERSION@.la \
+ 	$(GST_BASE_LIBS) \
+ 	$(GCOV_LIBS)

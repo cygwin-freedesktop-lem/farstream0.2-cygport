@@ -1,0 +1,34 @@
+inherit gstreamer gnome2
+
+NAME="farstream0.2"
+VERSION=0.2.2
+RELEASE=1
+CATEGORY="Net"
+SUMMARY="A/V conferencing library"
+DESCRIPTION="The Farstream project is an effort to create a framework to deal
+with all known audio/video conferencing protocols. On one side it offers a
+generic API that makes it possible to write plugins for different streaming
+protocols, on the other side it offers an API for clients to use those plugins."
+HOMEPAGE="http://farstream.freedesktop.org/wiki/"
+SRC_URI="http://freedesktop.org/software/farstream/releases/farstream/farstream-${VERSION}.tar.gz"
+SRC_DIR="farstream-${VERSION}"
+PATCH_URI="
+	0.2.2-as-needed.patch
+	0.2.2-gtk-doc.patch
+"
+
+PKG_NAMES="libfarstream0.2_2 libfarstream0.2-devel gstreamer1.0-plugins-farstream
+           girepository-Farstream0.2"
+libfarstream0_2_2_CONTENTS="usr/bin/cygfarstream-0.2-2.dll usr/lib/farstream-0.2/ usr/share/doc/"
+libfarstream0_2_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig
+                                   usr/share/gtk-doc/html/farstream-libs-*/"
+gstreamer1_0_plugins_farstream_CONTENTS="usr/lib/gstreamer-1.0/ usr/share/farstream/
+                                         usr/share/gtk-doc/html/farstream-plugins-*/"
+girepository_Farstream0_2_CONTENTS="usr/*/gir*/Farstream-0.2.*"
+
+src_compile() {
+	cd ${S}
+	gstreamer_autoreconf
+	cd ${B}
+	gnome2_compile
+}
