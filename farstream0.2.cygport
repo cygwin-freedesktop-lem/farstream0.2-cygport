@@ -1,7 +1,7 @@
 inherit gstreamer gnome2
 
 NAME="farstream0.2"
-VERSION=0.2.3
+VERSION=0.2.6
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="A/V conferencing library"
@@ -13,7 +13,6 @@ HOMEPAGE="http://farstream.freedesktop.org/wiki/"
 SRC_URI="http://freedesktop.org/software/farstream/releases/farstream/farstream-${VERSION}.tar.gz"
 SRC_DIR="farstream-${VERSION}"
 PATCH_URI="
-	0.2.2-as-needed.patch
 	0.2.2-gtk-doc.patch
 	0.2.3-implicit-decls.patch
 "
