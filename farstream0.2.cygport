@@ -1,7 +1,7 @@
 inherit gstreamer gnome2
 
 NAME="farstream0.2"
-VERSION=0.2.6
+VERSION=0.2.9
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="A/V conferencing library"
@@ -9,7 +9,7 @@ DESCRIPTION="The Farstream project is an effort to create a framework to deal
 with all known audio/video conferencing protocols. On one side it offers a
 generic API that makes it possible to write plugins for different streaming
 protocols, on the other side it offers an API for clients to use those plugins."
-HOMEPAGE="http://farstream.freedesktop.org/wiki/"
+HOMEPAGE="https://www.freedesktop.org/wiki/Software/Farstream/"
 SRC_URI="http://freedesktop.org/software/farstream/releases/farstream/farstream-${VERSION}.tar.gz"
 SRC_DIR="farstream-${VERSION}"
 PATCH_URI="
@@ -17,15 +17,31 @@ PATCH_URI="
 	0.2.3-implicit-decls.patch
 "
 
-PKG_NAMES="libfarstream0.2_2 libfarstream0.2-devel libfarstream0.2-doc
+BUILD_REQUIRES="\
+  pkg-config\
+  gtk-doc\
+  gstreamer1.0-plugins-base\
+  libffi-devel\
+  libgirepository1.0-devel\
+  libglib2.0-devel\
+  libgstreamer1.0-devel\
+  libiconv-devel\
+  libintl-devel\
+  libnice-devel\
+"
+
+ABI=2
+
+PKG_NAMES="libfarstream0.2_${ABI} libfarstream0.2-devel libfarstream0.2-doc
            gstreamer1.0-plugins-farstream girepository-Farstream0.2"
-libfarstream0_2_2_CONTENTS="usr/bin/cygfarstream-0.2-2.dll usr/lib/farstream-0.2/ usr/share/doc/"
+printf -v "libfarstream0_2_${ABI}_CONTENTS" "%s" "usr/bin/cygfarstream-0.2-${ABI}.dll usr/lib/farstream-0.2/"
 libfarstream0_2_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig"
 libfarstream0_2_doc_CATEGORY="Doc"
-libfarstream0_2_doc_CONTENTS="usr/share/gtk-doc/html/"
+libfarstream0_2_doc_CONTENTS="usr/share/doc/ usr/share/gtk-doc/html/"
 gstreamer1_0_plugins_farstream_CONTENTS="usr/lib/gstreamer-1.0/ usr/share/farstream/"
 girepository_Farstream0_2_CONTENTS="usr/*/gir*/Farstream-0.2.*"
 
+export PYTHON=python3.8
 src_compile() {
 	cd ${S}
 	gstreamer_autoreconf
